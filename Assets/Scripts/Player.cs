@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private float _horizontalRightLimit = 8.8f, _horizontalLeftLimit = -8.8f, _verticalUpLimit = 9.2f, _verticalDownLimit = 0.0f;
     [SerializeField]
     private int _health = 100;
     [SerializeField]
@@ -13,12 +14,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _nextFire = 0.0f;
+    private Spawn_Manager _spawnManager;
 
     // Start is called before the first frame update
     void Start()
     {
         //take the current position = new position (0, 0, 0)
         transform.position = new Vector3(0, 0, 0);
+        _spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<Spawn_Manager>();
+
+        if(_spawnManager == null)
+        {
+            Debug.Log("Spawn manager not found!");
+        }
     }
 
     // Update is called once per frame
@@ -40,7 +48,7 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
         transform.Translate(direction * _speed * Time.deltaTime);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -8.8f, 8.8f), Mathf.Clamp(transform.position.y, 0, 9.2f), 0); //Limit player movement in the given boundaries
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, _horizontalLeftLimit, _horizontalRightLimit), Mathf.Clamp(transform.position.y, _verticalDownLimit, _verticalUpLimit), 0); //Limit player movement in the given boundaries
     }
 
     void Fire()
@@ -54,8 +62,11 @@ public class Player : MonoBehaviour
 
         Debug.Log("Damage taken by: " + damage + "\nHealth is now: " + this._health);
 
-        if(_health <= 0)
+        if(_health <= 0) //Player is dead i.e OnDeath()
+        {
+            _spawnManager.OnPlayerDeath();
             Destroy(this.gameObject);
+        }
     }
 
 }

@@ -348,6 +348,7 @@
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/Laser.cs"
 "Assets/Scripts/Player.cs"
+"Assets/Scripts/Spawn_Manager.cs"
 -langversion:9.0
 
 /deterministic
