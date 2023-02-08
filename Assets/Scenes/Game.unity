@@ -155,12 +155,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 100
-  _horizontalSpeed: 10
-  _verticalSpeed: 7.5
+  _horizontalSpeed: 9
+  _verticalSpeed: 6
   _laserPrefab: {fileID: 3172727964530280933, guid: 5c00ca9f7d2f2d44f91b9fe99f5064f0, type: 3}
   _tripleLaserPrefab: {fileID: 782077276357246343, guid: 5baa2eee7ede67f49b4fd12d47343441, type: 3}
   _fireRate: 0.47
   _tripleshotDuration: 5
+  _speedboostDuration: 5
 --- !u!212 &166971929
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -378,10 +379,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawn_enemy_timer: 1.96
-  spawn_powerup_timer: 10
+  spawn_powerup_timer: 10.05
   _enemyPrefab: {fileID: 1575244028755071654, guid: 6aa9e0c61efa5004d8273bed85084881, type: 3}
   _enemyContainer: {fileID: 1884877356}
-  _tripleShotPowerupPrefab: {fileID: 4174720982829692031, guid: a81222d7e95946a4c80d4aa8c0a65f2d, type: 3}
+  powerups:
+  - {fileID: 4174720982829692031, guid: a81222d7e95946a4c80d4aa8c0a65f2d, type: 3}
+  - {fileID: 7155004332164705617, guid: 677c2400526fc4d40b0de23f22cc228d, type: 3}
+  - {fileID: 0}
 --- !u!4 &1453750189
 Transform:
   m_ObjectHideFlags: 0
@@ -475,7 +479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763399356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.77}
+  m_LocalPosition: {x: 0.04, y: 6.56, z: 0.77}
   m_LocalScale: {x: 29.77255, y: 21.593666, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -578,7 +582,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 66.2
+  field of view: 71.7
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

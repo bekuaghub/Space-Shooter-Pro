@@ -11,14 +11,15 @@ public class Spawn_Manager : MonoBehaviour
     [SerializeField] private float spawn_powerup_timer = 20.0f;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private GameObject _tripleShotPowerupPrefab;
+    [SerializeField] private GameObject[] powerups;
     private bool _spawning = true;
+
 
     void Start()
     {
         spawn_enemy = SpawnRoutine(spawn_enemy_timer, _enemyPrefab);
         StartCoroutine(spawn_enemy);
-        spawn_powerup = SpawnRoutinePowerup(spawn_powerup_timer, _tripleShotPowerupPrefab);
+        spawn_powerup = SpawnRoutinePowerup(spawn_powerup_timer);
         StartCoroutine(spawn_powerup);
     }
 
@@ -37,13 +38,22 @@ public class Spawn_Manager : MonoBehaviour
             newEnemy.transform.parent = _enemyContainer.transform;
         }
     }
-    IEnumerator SpawnRoutinePowerup(float spawn_timer, GameObject currObject) //Spawn powerup in random position within limits per spawn_powerup_timer +- 4s
+    IEnumerator SpawnRoutinePowerup(float spawn_timer) //Spawn powerup in random position within limits per spawn_powerup_timer +- 2s
     {
         while (_spawning)
         {
-            yield return new WaitForSeconds(spawn_powerup_timer + Random.Range(-4.0f, 4.0f));
+            yield return new WaitForSeconds(spawn_powerup_timer + Random.Range(-2.0f, 2.0f));
             Vector3 loc = new Vector3(Random.Range(_horizontalLeftLimit, _horizontalRightLimit), _verticalUpLimit, 0);
-            GameObject newPowerup = Instantiate(currObject, loc, Quaternion.identity);
+            int randomPowerup = Random.Range(0, 2);
+            switch (randomPowerup)
+            {
+                case 0:
+                    GameObject newTripleShotPowerup = Instantiate(powerups[0], loc, Quaternion.identity);
+                    break;
+                case 1:
+                    GameObject newSpeedboostPowerup = Instantiate(powerups[1], loc, Quaternion.identity);
+                    break;
+            }
         }
     }
 

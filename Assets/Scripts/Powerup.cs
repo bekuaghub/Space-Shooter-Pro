@@ -6,6 +6,7 @@ public class Powerup : MonoBehaviour
 {
     private float _verticalDownLimit = -2.0f;
     [SerializeField] private float _speed = 3.0f;
+    [SerializeField] private int _powerupID;
 
     void Start()
     {
@@ -30,7 +31,18 @@ public class Powerup : MonoBehaviour
             Player _player = other.GetComponent<Player>();
             if (other != null)
             {
-                _player.TripleShotActivate();
+                switch(_powerupID)
+                {
+                    case 0: //TripleShot
+                        _player.TripleShotActivate();
+                        break;
+                    case 1: //SpeedBoost
+                        _player.SpeedBoostActivate();
+                        break;
+                    case 2: //SpeedBoost
+                        //_player.SpeedBoostActivate();
+                        break;
+                }
             }
             Destroy(this.gameObject);
         }

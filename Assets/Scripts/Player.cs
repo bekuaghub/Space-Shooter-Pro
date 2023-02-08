@@ -15,7 +15,9 @@ public class Player : MonoBehaviour
     private float _nextFire = 0.0f;
     private Spawn_Manager _spawnManager;
     private bool _tripleShotActive = false;
+    private bool _speedBoostActive = false;
     [SerializeField] private float _tripleshotDuration = 5.0f;
+    [SerializeField] private float _speedboostDuration = 5.0f;
 
     void Start()
     {
@@ -43,7 +45,12 @@ public class Player : MonoBehaviour
     { 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 direction = new Vector3(horizontalInput * _horizontalSpeed, verticalInput * _verticalSpeed, 0);
+        Vector3 direction;
+
+        if (_speedBoostActive)
+            direction = new Vector3(horizontalInput * (_horizontalSpeed * 2), verticalInput * (_verticalSpeed * 2), 0);
+        else
+            direction = new Vector3(horizontalInput * _horizontalSpeed, verticalInput * _verticalSpeed, 0);
 
         transform.Translate(direction * Time.deltaTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, _horizontalLeftLimit, _horizontalRightLimit), Mathf.Clamp(transform.position.y, _verticalDownLimit, _verticalUpLimit), 0); //Limit player movement in the given boundaries
@@ -77,15 +84,22 @@ public class Player : MonoBehaviour
     public void TripleShotActivate()
     {
         _tripleShotActive = true;
-        StartCoroutine(TripleShotDuration());
+        StartCoroutine(TripleShotDurationRoutine());
     }
-    IEnumerator TripleShotDuration()
+    IEnumerator TripleShotDurationRoutine()
     {
-        while (true && _tripleShotActive)
-        {
-            yield return new WaitForSeconds(_tripleshotDuration);
-            _tripleShotActive = false;
-        }
+        yield return new WaitForSeconds(_tripleshotDuration);
+        _tripleShotActive = false;
+    }
+    public void SpeedBoostActivate()
+    {
+        _speedBoostActive = true;
+        StartCoroutine(SpeedBoostDurationRoutine());
+    }
+    IEnumerator SpeedBoostDurationRoutine()
+    {
+        yield return new WaitForSeconds(_speedboostDuration);
+        _speedBoostActive = false;
     }
 
 }
