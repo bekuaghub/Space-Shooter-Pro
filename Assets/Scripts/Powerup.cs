@@ -40,7 +40,7 @@ public class Powerup : MonoBehaviour
                         _player.SpeedBoostActivate();
                         break;
                     case 2: //SpeedBoost
-                        //_player.SpeedBoostActivate();
+                        _player.ShieldActivate();
                         break;
                 }
             }

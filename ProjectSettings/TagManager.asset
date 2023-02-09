@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Laser
   - SpawnManager
+  - ScoreText
+  - TimeText
+  - UI_Manager
+  - HealthBar
   layers:
   - Default
   - TransparentFX

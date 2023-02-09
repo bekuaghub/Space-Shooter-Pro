@@ -32,10 +32,10 @@ public class Spawn_Manager : MonoBehaviour
     {
         while (_spawning)
         {
-            yield return new WaitForSeconds(spawn_timer);
             Vector3 loc = new Vector3(Random.Range(_horizontalLeftLimit, _horizontalRightLimit), _verticalUpLimit, 0);
             GameObject newEnemy = Instantiate(currObject, loc, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
+            yield return new WaitForSeconds(spawn_timer);
         }
     }
     IEnumerator SpawnRoutinePowerup(float spawn_timer) //Spawn powerup in random position within limits per spawn_powerup_timer +- 2s
@@ -44,18 +44,22 @@ public class Spawn_Manager : MonoBehaviour
         {
             yield return new WaitForSeconds(spawn_powerup_timer + Random.Range(-2.0f, 2.0f));
             Vector3 loc = new Vector3(Random.Range(_horizontalLeftLimit, _horizontalRightLimit), _verticalUpLimit, 0);
-            int randomPowerup = Random.Range(0, 2);
+            int randomPowerup = Random.Range(0, 3);
             switch (randomPowerup)
             {
                 case 0:
-                    GameObject newTripleShotPowerup = Instantiate(powerups[0], loc, Quaternion.identity);
+                    GameObject newTripleShotPowerup = Instantiate(powerups[0], loc, Quaternion.identity); //Spawn tripleshotPowerup
                     break;
                 case 1:
-                    GameObject newSpeedboostPowerup = Instantiate(powerups[1], loc, Quaternion.identity);
+                    GameObject newSpeedboostPowerup = Instantiate(powerups[1], loc, Quaternion.identity); //Spawn SpeedPowerup
+                    break;
+                case 2:
+                    GameObject newShieldPowerup = Instantiate(powerups[2], loc, Quaternion.identity); //Spawn shieldPowerup
                     break;
             }
         }
     }
+
 
     public void OnPlayerDeath()
     {

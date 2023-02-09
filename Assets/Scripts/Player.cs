@@ -6,7 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float _horizontalRightLimit = 8.8f, _horizontalLeftLimit = -8.8f, _verticalUpLimit = 9.2f, _verticalDownLimit = 0.0f;
-    [SerializeField] private int _health = 100;
+    [SerializeField] private float _health = 100f;
+    [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _horizontalSpeed = 4.5f;
     [SerializeField] private float _verticalSpeed = 3f;
     [SerializeField] private GameObject _laserPrefab;
@@ -14,20 +15,32 @@ public class Player : MonoBehaviour
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFire = 0.0f;
     private Spawn_Manager _spawnManager;
+    private UI_Manager _uiManager;
     private bool _tripleShotActive = false;
     private bool _speedBoostActive = false;
+    private bool _shieldActive = false;
     [SerializeField] private float _tripleshotDuration = 5.0f;
     [SerializeField] private float _speedboostDuration = 5.0f;
+    //[SerializeField] private float _shieldDuration = 5.0f;
+    [SerializeField] private GameObject _shield;
+    [SerializeField] private int _score = 0;
 
     void Start()
     {
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<Spawn_Manager>();
+        _uiManager = GameObject.FindWithTag("UI_Manager").GetComponent<UI_Manager>();
 
-        if(_spawnManager == null)
+        if (_spawnManager == null)
         {
             Debug.Log("Spawn manager not found!");
         }
+
+        if (_uiManager == null)
+        {
+            Debug.Log("UI manager not found!");
+        }
+
     }
 
     void Update()
@@ -70,13 +83,22 @@ public class Player : MonoBehaviour
 
     public void DamageTaken(int damage)
     {
+        if (_shieldActive)
+        {
+            _shieldActive = false;
+            _shield.SetActive(false);
+            return;
+        }
+
         this._health -= damage;
+        _uiManager.OnHealthUpdate(_health / _maxHealth);
 
         Debug.Log("Damage taken by: " + damage + "\nHealth is now: " + this._health);
 
         if(_health <= 0) //Player is dead i.e OnDeath()
         {
             _spawnManager.OnPlayerDeath();
+            _uiManager.GameOverActivate();
             Destroy(this.gameObject);
         }
     }
@@ -101,5 +123,25 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(_speedboostDuration);
         _speedBoostActive = false;
     }
+
+    public void ShieldActivate()
+    {
+        _shieldActive = true;
+        _shield.SetActive(true);
+        //StartCoroutine(ShieldDurationRoutine());
+    }
+
+    public void AddToScore(int value)
+    {
+        _score += value;
+        _uiManager.UpdateScore(_score);
+    }
+
+
+    //IEnumerator ShieldDurationRoutine()
+    //{
+    //    yield return new WaitForSeconds(_shieldDuration);
+    //    _shieldActive = false;
+    //}
 
 }
