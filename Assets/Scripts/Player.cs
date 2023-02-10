@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float _verticalSpeed = 3f;
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private GameObject _tripleLaserPrefab;
+    [SerializeField] private GameObject _damageTakenLeft;
+    [SerializeField] private GameObject _damageTakenRight;
+    [SerializeField] private GameObject _explosion;
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFire = 0.0f;
     private Spawn_Manager _spawnManager;
@@ -97,9 +100,18 @@ public class Player : MonoBehaviour
 
         if(_health <= 0) //Player is dead i.e OnDeath()
         {
+            Instantiate(_explosion, this.transform.position, Quaternion.identity);
             _spawnManager.OnPlayerDeath();
             _uiManager.GameOverActivate();
             Destroy(this.gameObject);
+        }
+        else if(_health <= 40)
+        {
+            _damageTakenLeft.SetActive(true);
+        }
+        else if (_health <= 60)
+        {
+            _damageTakenRight.SetActive(true);
         }
     }
 

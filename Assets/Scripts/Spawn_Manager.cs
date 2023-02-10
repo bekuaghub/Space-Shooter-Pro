@@ -11,21 +11,25 @@ public class Spawn_Manager : MonoBehaviour
     [SerializeField] private float spawn_powerup_timer = 20.0f;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemyContainer;
+    [SerializeField] private GameObject _astroidPrefab;
     [SerializeField] private GameObject[] powerups;
     private bool _spawning = true;
 
 
     void Start()
     {
-        spawn_enemy = SpawnRoutine(spawn_enemy_timer, _enemyPrefab);
-        StartCoroutine(spawn_enemy);
-        spawn_powerup = SpawnRoutinePowerup(spawn_powerup_timer);
-        StartCoroutine(spawn_powerup);
+        
     }
 
     void Update()
     {
 
+    }
+
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnRoutine(spawn_enemy_timer, _enemyPrefab));
+        StartCoroutine(SpawnRoutinePowerup(spawn_powerup_timer));
     }
 
     IEnumerator SpawnRoutine(float spawn_timer, GameObject currObject) //Spawn enemy in random position within limits per spawn_timer
