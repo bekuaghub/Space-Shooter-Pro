@@ -7,12 +7,13 @@ using System;
 
 public class UI_Manager : MonoBehaviour
 {
+    [SerializeField] private GameManager _manager;
     private TextMeshProUGUI _scoreTextBox;
     private TextMeshProUGUI _timeTextBox;
     [SerializeField] private TextMeshProUGUI _gameOverTextbox;
+    [SerializeField] private TextMeshProUGUI _restartText;
     private Slider _slider;
     [SerializeField] bool _timerActive = true;
-    private float nextTime, timerFreq = 1.0f;
 
     void Start()
     {
@@ -37,7 +38,7 @@ public class UI_Manager : MonoBehaviour
     {
         while (_timerActive)
         {
-            TimeSpan time = TimeSpan.FromSeconds(Time.time);
+            TimeSpan time = TimeSpan.FromSeconds(Time.timeSinceLevelLoad);
             _timeTextBox.text = "TIME: " + time.ToString(@"hh\:mm\:ss");
             yield return new WaitForSeconds(1.0f);
         }
@@ -50,7 +51,20 @@ public class UI_Manager : MonoBehaviour
     public void GameOverActivate()
     {
         _gameOverTextbox.gameObject.SetActive(true);
+        StartCoroutine(GameOverFlicker());
+        _restartText.gameObject.SetActive(true);
         _timerActive = false;
+        _manager.GameOver();
+    }
+    IEnumerator GameOverFlicker()
+    {
+        while (true)
+        {
+            _gameOverTextbox.text = "GAME OVER";
+            yield return new WaitForSeconds(0.5f);
+            _gameOverTextbox.text = "";
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
 }
