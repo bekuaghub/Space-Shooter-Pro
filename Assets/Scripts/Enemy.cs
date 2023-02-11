@@ -9,11 +9,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int _damage = 10;
     private Animator _enemyAnimation;
     private Player _player;
+    private AudioSource _explosionSound;
     bool _isAlive = true;
 
     void Start()
     {
         _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        _explosionSound = GetComponent<AudioSource>();
         _enemyAnimation = GetComponent<Animator>();
     }
     
@@ -38,6 +40,7 @@ public class Enemy : MonoBehaviour
                 player.DamageTaken(_damage);
             _enemyAnimation.SetTrigger("OnEnemyDeath");
             _isAlive = false;
+            _explosionSound.Play();
             Destroy(this.gameObject, 1f);
         }
 
@@ -48,6 +51,7 @@ public class Enemy : MonoBehaviour
                 _player.AddToScore(10);
             _enemyAnimation.SetTrigger("OnEnemyDeath");
             _isAlive = false;
+            _explosionSound.Play();
             Destroy(this.gameObject, 1f);
         }
     }

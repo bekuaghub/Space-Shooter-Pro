@@ -11,6 +11,9 @@ TagManager:
   - TimeText
   - UI_Manager
   - HealthBar
+  - Audio_Manager
+  - ExplosionSound
+  - LaserSound
   layers:
   - Default
   - TransparentFX
@@ -20,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Post Processing
   - 
   - 
   - 

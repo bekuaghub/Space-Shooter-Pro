@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _damageTakenLeft;
     [SerializeField] private GameObject _damageTakenRight;
     [SerializeField] private GameObject _explosion;
+    [SerializeField] AudioSource _laserSoundSource;
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFire = 0.0f;
     private Spawn_Manager _spawnManager;
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
         _spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<Spawn_Manager>();
         _uiManager = GameObject.FindWithTag("UI_Manager").GetComponent<UI_Manager>();
+        _laserSoundSource = GetComponent<AudioSource>();
+        
 
         if (_spawnManager == null)
         {
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour
     {
         if (Time.time > _nextFire) //Check if fire cooldown is reset
         {
+            _laserSoundSource.Play();
             _nextFire = Time.time + _fireRate;
             if (_tripleShotActive)
                 Instantiate(_tripleLaserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);

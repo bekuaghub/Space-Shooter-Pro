@@ -7,10 +7,12 @@ public class Powerup : MonoBehaviour
     private float _verticalDownLimit = -2.0f;
     [SerializeField] private float _speed = 3.0f;
     [SerializeField] private int _powerupID;
-
+    [SerializeField] private AudioSource _powerupSound;
+    [SerializeField] private AudioClip _powerupClip;
     void Start()
     {
-
+        _powerupSound = GetComponent<AudioSource>();
+        _powerupClip = _powerupSound.clip;
     }
 
     void Update()
@@ -43,6 +45,7 @@ public class Powerup : MonoBehaviour
                         _player.ShieldActivate();
                         break;
                 }
+                AudioSource.PlayClipAtPoint(_powerupClip, transform.position);
             }
             Destroy(this.gameObject);
         }
