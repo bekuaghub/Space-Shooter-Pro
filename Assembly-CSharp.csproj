@@ -751,6 +751,9 @@
     <Reference Include="Unity.VisualScripting.Flow.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.Flow.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.InternalAPIEditorBridgeDev.001">
+      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridgeDev.001.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -805,6 +808,9 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Play.Publisher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Play.Publisher.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TestTools.CodeCoverage.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
     </Reference>
@@ -822,12 +828,6 @@
     </Reference>
     <Reference Include="Unity.EditorCoroutines.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.EditorCoroutines.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InternalAPIEditorBridgeDev.001">
-      <HintPath>Library\ScriptAssemblies\Unity.InternalAPIEditorBridgeDev.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Play.Publisher.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Play.Publisher.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

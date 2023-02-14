@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    private float _verticalUpLimit = 12f;
+    private float _verticalUpLimit = 28f;
     [SerializeField] private float _speed = 8f;
 
     void Start()
     {
-        
+
     }
 
     void Update()

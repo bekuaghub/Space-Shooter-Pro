@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float _horizontalRightLimit = 8.8f, _horizontalLeftLimit = -8.8f, _verticalUpLimit = 9.2f, _verticalDownLimit = 0.0f;
+    private float _horizontalRightLimit = 26f, _horizontalLeftLimit = -26f, _verticalUpLimit = 26f, _verticalDownLimit = 0.0f;
     [SerializeField] private float _health = 100f;
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _horizontalSpeed = 4.5f;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     //[SerializeField] private float _shieldDuration = 5.0f;
     [SerializeField] private GameObject _shield;
     [SerializeField] private int _score = 0;
+    Animator _animator;
 
     void Start()
     {
@@ -35,7 +36,8 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.FindWithTag("SpawnManager").GetComponent<Spawn_Manager>();
         _uiManager = GameObject.FindWithTag("UI_Manager").GetComponent<UI_Manager>();
         _laserSoundSource = GetComponent<AudioSource>();
-        
+        _animator = GetComponent<Animator>();
+
 
         if (_spawnManager == null)
         {
@@ -66,6 +68,7 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 direction;
 
+
         if (_speedBoostActive)
             direction = new Vector3(horizontalInput * (_horizontalSpeed * 2), verticalInput * (_verticalSpeed * 2), 0);
         else
@@ -73,6 +76,23 @@ public class Player : MonoBehaviour
 
         transform.Translate(direction * Time.deltaTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, _horizontalLeftLimit, _horizontalRightLimit), Mathf.Clamp(transform.position.y, _verticalDownLimit, _verticalUpLimit), 0); //Limit player movement in the given boundaries
+
+        if (horizontalInput > 0)
+        {
+            _animator.SetBool("IsMovingRight", true);
+            _animator.SetBool("IsMovingLeft", false);
+        }
+        else if (horizontalInput < 0)
+        {
+            _animator.SetBool("IsMovingLeft", true);
+            _animator.SetBool("IsMovingRight", false);
+        }
+        else if (horizontalInput < 1 && horizontalInput > -1)
+        {
+            _animator.SetBool("IsMovingLeft", false);
+            _animator.SetBool("IsMovingRight", false);
+        }
+        
     }
 
     void Fire()

@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _damage: 41
+  target: {fileID: 0}
 --- !u!212 &4404543465890334838
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -93,7 +94,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3154912113cbb4a498df6f571c74e18c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8726415, b: 0.8726415, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -117,7 +118,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

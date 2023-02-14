@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawn_Manager : MonoBehaviour
 {
-    private float _horizontalRightLimit = 8.8f, _horizontalLeftLimit = -8.8f, _verticalUpLimit = 12f;
+    private float _horizontalRightLimit = 26f, _horizontalLeftLimit = -26f, _verticalUpLimit = 28f;
     private IEnumerator spawn_enemy;
     private IEnumerator spawn_powerup;
     [SerializeField] private float spawn_enemy_timer = 5.0f;
